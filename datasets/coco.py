@@ -240,21 +240,19 @@ def make_coco_transforms(image_set, fix_size=False, strong_aug=False, args=None)
             normalize,
         ])
 
-
-
     raise ValueError(f'unknown {image_set}')
 
 
 def build(image_set, args):
     root = Path(args.coco_path)
     # assert root.exists(), f'provided COCO path {root} does not exist'
-    mode = 'instances'
+    # mode = 'instances'
     PATHS = {
-        "train": (root / "train2017", root / "annotations" / f'{mode}_train2017.json'),
-        "train_reg": (root / "train2017", root / "annotations" / f'{mode}_train2017.json'),
-        "val": (root / "val2017", root / "annotations" / f'{mode}_val2017.json'),
-        "eval_debug": (root / "val2017", root / "annotations" / f'{mode}_val2017.json'),
-        "test": (root / "test2017", root / "annotations" / 'image_info_test-dev2017.json' ),
+        "train": (root, root / 'train_fold_0.json'),
+        "train_reg": (root, root / 'train_fold_0.json'),
+        "val": (root, root / 'valid_fold_0.json'),
+        "eval_debug": (root, root / 'valid_fold_0.json'),
+        "test": (root, root / 'test.json'),
     }
 
     # add some hooks to datasets
